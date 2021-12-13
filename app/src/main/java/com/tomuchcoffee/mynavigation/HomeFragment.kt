@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.tomuchcoffee.mynavigation.databinding.FragmentHomeBinding
 
@@ -24,7 +25,15 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        view.findNavController().navigate(R.id.action_homeFragment_to_profileActivity)
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnCategory.setOnClickListener {
+            Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_categoryFragment)
+        }
+
+        binding.btnProfile.setOnClickListener { view ->
+            view.findNavController().navigate(R.id.action_homeFragment_to_profileActivity)
+        }
     }
 
     override fun onDestroy() {
