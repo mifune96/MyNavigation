@@ -6,12 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import com.tomuchcoffee.mynavigation.databinding.FragmentHomeBinding
+import com.tomuchcoffee.mynavigation.databinding.FragmentDetailCategoryBinding
 
-class HomeFragment : Fragment() {
+class DetailCategoryFragment : Fragment() {
 
-    private var _binding : FragmentHomeBinding? = null
+    private var _binding: FragmentDetailCategoryBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -19,7 +18,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailCategoryBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
@@ -27,19 +26,20 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnCategory.setOnClickListener (
-            Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_categoryFragment)
-        )
+        val dataName = DetailCategoryFragmentArgs.fromBundle(arguments as Bundle).name
+        val dataDescription = DetailCategoryFragmentArgs.fromBundle(arguments as Bundle).stock
 
-        binding.btnProfile.setOnClickListener { view ->
-            view.findNavController().navigate(R.id.action_homeFragment_to_profileActivity)
-        }
+        binding.tvCategoryName.text = dataName
+        binding.tvCategoryDescription.text = "Strock : $dataDescription"
+
+        binding.btnProfile.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_detailCategoryFragment_to_homeFragment)
+        )
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 
 }
